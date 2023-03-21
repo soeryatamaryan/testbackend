@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\DebitCardController;
 use App\Http\Controllers\DebitCardTransactionController;
+use App\Http\Controllers\PassportAuthController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,6 +15,10 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+
+
+Route::post('register', [PassportAuthController::class, 'register']);
+Route::post('login', [PassportAuthController::class, 'login']);
 
 Route::middleware('auth:api')
     ->group(function () {

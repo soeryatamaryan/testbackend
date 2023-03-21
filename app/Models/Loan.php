@@ -14,6 +14,7 @@ class Loan extends Model
 
     public const CURRENCY_SGD = 'SGD';
     public const CURRENCY_VND = 'VND';
+    public const CURRENCY_IDR = 'IDR';
 
     use HasFactory;
 
@@ -37,6 +38,9 @@ class Loan extends Model
         'currency_code',
         'processed_at',
         'status',
+        'created_at',
+        'updated_at',
+        'deleted_at'
     ];
 
     /**

@@ -28,6 +28,12 @@ class ScheduledRepayment extends Model
      */
     protected $fillable = [
         //
+        'id',
+        'amount',
+        'currency_code',
+        'due_date',
+        'status',
+        'loan_id'
     ];
 
     /**
@@ -38,5 +44,15 @@ class ScheduledRepayment extends Model
     public function loan()
     {
         return $this->belongsTo(Loan::class, 'loan_id');
+    }
+
+    public function scopeDue($query)
+    {
+        return $query->where('status',ScheduledRepayment::STATUS_DUE)->orderBy("due_date","ASC");
+    }
+
+    public function scopeRepaid($query)
+    {
+        return $query->where('status',ScheduledRepayment::STATUS_REPAID);
     }
 }

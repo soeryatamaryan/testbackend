@@ -22,7 +22,7 @@ class DebitCardController extends BaseController
      *
      * @return JsonResponse
      */
-    public function index(DebitCardShowRequest $request): JsonResponse
+    public function index(DebitCardShowRequest $request) : JsonResponse
     {
         $debitCards = $request->user()
             ->debitCards()
@@ -39,11 +39,11 @@ class DebitCardController extends BaseController
      *
      * @return JsonResponse
      */
-    public function store(DebitCardCreateRequest $request)
+    public function store(DebitCardCreateRequest $request) : JsonResponse
     {
         $debitCard = $request->user()->debitCards()->create([
             'type' => $request->input('type'),
-            'number' => rand(1000000000000000, 9999999999999999),
+            'number' => rand(100000000, 999999999),
             'expiration_date' => Carbon::now()->addYear(),
         ]);
 
@@ -58,7 +58,7 @@ class DebitCardController extends BaseController
      *
      * @return JsonResponse
      */
-    public function show(DebitCardShowRequest $request, DebitCard $debitCard)
+    public function show(DebitCardShowRequest $request, DebitCard $debitCard) : JsonResponse
     {
         return response()->json(new DebitCardResource($debitCard), HttpResponse::HTTP_OK);
     }
@@ -71,7 +71,7 @@ class DebitCardController extends BaseController
      *
      * @return JsonResponse
      */
-    public function update(DebitCardUpdateRequest $request, DebitCard $debitCard)
+    public function update(DebitCardUpdateRequest $request, DebitCard $debitCard) : JsonResponse
     {
         $debitCard->update([
             'disabled_at' => $request->input('is_active') ? null : Carbon::now(),
@@ -89,9 +89,9 @@ class DebitCardController extends BaseController
      * @return JsonResponse
      * @throws \Exception
      */
-    public function destroy(DebitCardDestroyRequest $request, DebitCard $debitCard)
+    public function destroy(DebitCardDestroyRequest $request, DebitCard $debitCard) : JsonResponse
     {
-        $debitCard->delete();
+        $check = $debitCard->delete();
 
         return response()->json([], HttpResponse::HTTP_NO_CONTENT);
     }
